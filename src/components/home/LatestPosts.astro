@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import BlogCard from "../blog/BlogCard.astro";
+
+const posts = await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+);
+
+posts.sort(
+  (a, b) =>
+    b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<section id="latest-posts" class="latest-posts container">
+
+  <h2>Latest Articles</h2>
+
+  <div class="posts-grid">
+
+    {
+      posts.map((post) => (
+        <BlogCard post={post} />
+      ))
+    }
+
+  </div>
+
+</section>

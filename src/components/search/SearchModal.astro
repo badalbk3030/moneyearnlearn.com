@@ -1,0 +1,44 @@
+---
+// src/components/search/SearchModal.astro
+// यहाँ हम CSS फ़ाइल को सही path के साथ import कर रहे हैं
+import "../../styles/search.css";
+---
+
+<div id="search-modal" class="search-modal">
+    <div class="search-box">
+        <button id="close-search" class="close-search" type="button">✕</button>
+        
+        <h2 class="search-heading">Search Articles</h2>
+        
+        <input id="search-input" type="search" placeholder="Search articles..." autocomplete="off" />
+        
+        <div id="search-results"></div>
+    </div>
+</div>
+
+<script>
+  // --- Modal Open/Close Logic ---
+  const modal = document.getElementById("search-modal");
+  const openBtn = document.getElementById("open-search");
+  const closeBtn = document.getElementById("close-search");
+
+  if (openBtn && modal && closeBtn) {
+    // Search बटन क्लिक करने पर Modal खुलेगा
+    openBtn.addEventListener("click", () => {
+      modal.classList.add("active");
+      document.getElementById("search-input").focus(); 
+    });
+
+    // ✕ बटन क्लिक करने पर Modal बंद होगा
+    closeBtn.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+
+    // ESC कीबोर्ड बटन दबाने पर Modal बंद होगा
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modal.classList.remove("active");
+      }
+    });
+  }
+</script>

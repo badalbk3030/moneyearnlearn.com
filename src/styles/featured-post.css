@@ -1,0 +1,51 @@
+/* ===========================
+   Featured Post
+=========================== */
+
+.featured{
+
+padding:70px 0;
+
+text-align:center;
+
+}
+
+.featured-badge{
+
+display:inline-block;
+
+background:#fef3c7;
+
+color:#92400e;
+
+padding:8px 18px;
+
+border-radius:30px;
+
+font-weight:bold;
+
+margin-bottom:25px;
+
+}
+
+.featured h2{
+
+font-size:48px;
+
+margin-bottom:20px;
+
+}
+
+.featured p{
+
+max-width:700px;
+
+margin:auto;
+
+margin-bottom:35px;
+
+font-size:20px;
+
+color:#555;
+
+}

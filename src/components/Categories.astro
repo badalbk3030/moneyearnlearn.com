@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+
+const posts = await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+);
+
+// Unique Categories निकालो
+const categories = [...new Set(posts.map(post => post.data.category))];
+---
+
+<section class="categories container">
+
+  <h2>Browse Categories</h2>
+
+  <div class="category-grid">
+
+    {
+      categories.map((category) => (
+
+        <a
+          href={`/category/${category.toLowerCase()}`}
+          class="category-card"
+        >
+          {category}
+        </a>
+
+      ))
+    }
+
+  </div>
+
+</section>

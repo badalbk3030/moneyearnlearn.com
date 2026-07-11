@@ -1,0 +1,62 @@
+---
+import "../styles/global.css";
+import SearchModal from "../components/search/SearchModal.astro";
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "MoneyEarnLearn",
+  description = "MoneyEarnLearn पर Blogging, SEO, Programming और Online Earning से जुड़ी आसान और उपयोगी जानकारी पढ़ें।",
+  image = "/favicon.svg",
+} = Astro.props;
+
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+const site = "https://moneyearnlearn.com";
+const canonical = new URL(Astro.url.pathname, site).toString();
+---
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="Badal Kumar" />
+
+  <link rel="canonical" href={canonical} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={image} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={image} />
+</head>
+
+<body>
+<SearchModal />
+  <Header />
+
+    <main data-pagefind-body>
+    <slot />
+  </main>
+
+  <Footer />
+
+</body>
+</html>

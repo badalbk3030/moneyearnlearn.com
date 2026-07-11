@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/blog/BlogCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection(
+    "blog",
+    ({ data }) => !data.draft
+  );
+
+  const tags = [...new Set(posts.flatMap(post => post.data.tags))];
+
+  return tags.map(tag => ({
+    params: {
+      tag: tag.toLowerCase()
+    }
+  }));
+}
+
+const { tag } = Astro.params;
+
+const posts = (await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+)).filter(post =>
+  post.data.tags.some(
+    t => t.toLowerCase() === tag
+  )
+);
+---
+
+<BaseLayout title={tag}>
+
+<section class="container category-page">
+
+  <h1>#{tag}</h1>
+
+  <div class="posts-grid">
+
+    {
+      posts.map(post => (
+        <BlogCard post={post} />
+      ))
+    }
+
+  </div>
+
+</section>
+
+</BaseLayout>

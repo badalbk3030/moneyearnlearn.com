@@ -1,0 +1,60 @@
+---
+import "../../styles/blog-card.css";
+
+const { post } = Astro.props;
+
+const date = post.data.pubDate.toLocaleDateString("en-IN", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+// Reading Time
+const plainText = (post.body ?? "")
+  .replace(/[#>*`-]/g, "")
+  .replace(/\n/g, " ");
+
+const words = plainText.trim().split(/\s+/).length;
+const readingTime = Math.max(1, Math.ceil(words / 200));
+---
+
+<a href={`/${post.id}`} class="blog-card">
+
+  {
+    post.data.image && (
+      <img
+        src={post.data.image.src ?? post.data.image}
+        alt={post.data.imageAlt || post.data.title}
+        class="blog-card-image"
+        loading="lazy"
+      />
+    )
+  }
+
+  <div class="blog-card-content">
+
+    <span class="blog-category">
+      {post.data.category}
+    </span>
+
+    <h2 class="blog-title">
+      {post.data.title}
+    </h2>
+
+    <p class="blog-description">
+      {post.data.description}
+    </p>
+
+    <div class="blog-meta">
+      <span>👤 {post.data.author}</span>
+      <span>📅 {date}</span>
+      <span>⏱️ {readingTime} min read</span>
+    </div>
+
+    <span class="read-more">
+      Read Article →
+    </span>
+
+  </div>
+
+</a>

@@ -1,0 +1,238 @@
+---
+import "../styles/article.css";
+import AuthorBox from "../components/blog/AuthorBox.astro";
+import { getCollection, getEntry, render } from "astro:content";
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogCard from "../components/blog/BlogCard.astro";
+import Breadcrumb from "../components/blog/Breadcrumb.astro";
+import TableOfContents from "../components/blog/TableOfContents.astro";
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: {
+      slug: post.id,
+    },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const post = await getEntry("blog", slug!);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const author = await getEntry("authors", post.data.author);
+
+if (!author) {
+  throw new Error(`Author not found: ${post.data.author}`);
+}
+
+const { Content, headings } = await render(post);
+
+// Reading Time
+const plainText = (post.body ?? "")
+  .replace(/[#>*`-]/g, "")
+  .replace(/\n/g, " ");
+
+const words = plainText.trim().split(/\s+/).length;
+
+const readingTime = Math.max(1, Math.ceil(words / 200));
+
+
+
+// Related Posts
+const allPosts = await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+);
+
+allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const currentIndex = allPosts.findIndex(
+  (p) => p.id === post.id
+);
+
+const nextPost =
+  currentIndex > 0
+    ? allPosts[currentIndex - 1]
+    : null;
+
+const previousPost =
+  currentIndex < allPosts.length - 1
+    ? allPosts[currentIndex + 1]
+    : null;
+
+
+
+
+const relatedPosts = allPosts
+  .filter(
+    (p) =>
+      p.id !== post.id &&
+      p.data.category === post.data.category
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+>
+
+  <article class="container blog-post" data-pagefind-body>
+
+---
+<Breadcrumb
+  category={post.data.category}
+  title={post.data.title}
+/>
+
+    <span class="category">
+      {post.data.category}
+    </span>
+
+    <h1>
+      {post.data.title}
+    </h1>
+
+    <p>
+      {post.data.description}
+    </p>
+
+    <div class="post-meta">
+
+  <span>
+    👤 {post.data.author}
+  </span>
+
+  <span>
+    📅 {post.data.pubDate.toLocaleDateString("en-IN")}
+  </span>
+
+  <span>
+    ⏱️ {readingTime} min read
+  </span>
+
+</div>
+
+{
+  post.data.image && (
+    <Image
+      src={post.data.image}
+      alt={post.data.imageAlt || post.data.title}
+      class="featured-image"
+      loading="eager"
+    />
+  )
+}
+
+<hr />
+
+<Content />
+
+<AuthorBox
+  author={author}
+  slug={post.data.author}
+/>
+
+<hr />
+
+    <div class="tags">
+
+      {
+        post.data.tags.map((tag) => (
+
+          <a
+            class="tag"
+            href={`/tag/${tag.toLowerCase()}`}
+          >
+            #{tag}
+          </a>
+
+        ))
+      }
+
+    </div>
+
+  </article>
+
+{
+  (previousPost || nextPost) && (
+
+    <section class="container post-navigation">
+
+      {
+        previousPost ? (
+
+          <a
+            href={`/${previousPost.id}`}
+            class="nav-card"
+          >
+
+            <small>← Previous Article</small>
+
+            <h3>
+              {previousPost.data.title}
+            </h3>
+
+          </a>
+
+        ) : <div></div>
+      }
+
+      {
+        nextPost ? (
+
+          <a
+            href={`/${nextPost.id}`}
+            class="nav-card"
+          >
+
+            <small>Next Article →</small>
+
+            <h3>
+              {nextPost.data.title}
+            </h3>
+
+          </a>
+
+        ) : <div></div>
+      }
+
+    </section>
+
+  )
+}
+
+  {
+    relatedPosts.length > 0 && (
+
+      <section class="container related-posts">
+
+        <h2>Related Articles</h2>
+
+        <div class="posts-grid">
+
+          {
+            relatedPosts.map((relatedPost) => (
+
+              <BlogCard post={relatedPost} />
+
+            ))
+          }
+
+        </div>
+
+      </section>
+
+    )
+  }
+
+</BaseLayout>

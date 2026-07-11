@@ -1,0 +1,24 @@
+/* ===========================
+   Common Grid Layout
+=========================== */
+
+.container{
+    width:min(1200px,90%);
+    margin:auto;
+}
+
+.posts-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:32px;
+    margin-top:40px;
+}
+
+@media(max-width:768px){
+
+.posts-grid{
+    grid-template-columns:1fr;
+    gap:24px;
+}
+
+}

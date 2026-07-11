@@ -1,0 +1,44 @@
+@import "./layout.css";
+@import "./header.css";
+@import "./footer.css";
+@import "./hero.css";
+@import "./featured-post.css";
+@import "./latest-posts.css";
+@import "./blog-card.css";
+@import "./article.css";
+@import "./breadcrumb.css";
+@import "./toc.css";
+@import "./utilities.css";
+@import "./newsletter.css";
+@import "./categories.css";
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:system-ui,sans-serif;
+  color:#111827;
+  background:#fff;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:min(1200px,92%);
+  margin:auto;
+}
+

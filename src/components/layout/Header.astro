@@ -1,0 +1,45 @@
+---
+import "../../styles/header.css";
+import SearchButton from "../search/SearchButton.astro";
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+  { name: "Categories", href: "/category" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+---
+
+<header class="site-header">
+
+  <div class="container">
+
+    <a href="/" class="logo">
+      MoneyEarnLearn
+    </a>
+
+    <nav>
+
+      <ul>
+
+        {
+          navItems.map((item) => (
+
+            <li>
+
+              <a href={item.href}>
+                {item.name}
+              </a>
+
+            </li>
+
+          ))
+        }
+
+      </ul>
+
+    </nav>
+<SearchButton />
+  </div>
+
+</header>

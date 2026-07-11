@@ -1,0 +1,207 @@
+---
+
+const year = new Date().getFullYear();
+
+---
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <!-- About -->
+
+      <div>
+
+        <h2>MoneyEarnLearn</h2>
+
+        <p>
+          Blogging, SEO, Programming और Online Earning
+          की आसान और भरोसेमंद जानकारी हिन्दी में।
+        </p>
+
+      </div>
+
+      <!-- Quick Links -->
+
+      <div>
+
+        <h3>Quick Links</h3>
+
+        <ul>
+
+          <li><a href="/">Home</a></li>
+
+          <li><a href="/blog">Blog</a></li>
+
+          <li><a href="/category">Categories</a></li>
+
+          <li><a href="/about">About</a></li>
+
+          <li><a href="/contact">Contact</a></li>
+
+        </ul>
+
+      </div>
+
+      <!-- Legal -->
+
+      <div>
+
+        <h3>Legal</h3>
+
+        <ul>
+
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+
+          <li><a href="/disclaimer">Disclaimer</a></li>
+
+          <li><a href="/terms-and-conditions">Terms & Conditions</a></li>
+
+        </ul>
+
+      </div>
+
+      <!-- Social -->
+
+      <div>
+
+        <h3>Follow Us</h3>
+
+        <ul>
+
+          <li><a href="#">YouTube</a></li>
+
+          <li><a href="#">Facebook</a></li>
+
+          <li><a href="#">Instagram</a></li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+
+      © {year} MoneyEarnLearn. All Rights Reserved.
+
+    </div>
+
+  </div>
+
+</footer>
+
+<style>
+
+.footer{
+
+    background:#111827;
+
+    color:#fff;
+
+    margin-top:80px;
+
+}
+
+.container{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:60px 20px;
+
+}
+
+.footer-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:40px;
+
+}
+
+.footer h2,
+.footer h3{
+
+    margin-bottom:18px;
+
+}
+
+.footer p{
+
+    line-height:1.8;
+
+    color:#d1d5db;
+
+}
+
+.footer ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.footer li{
+
+    margin-bottom:12px;
+
+}
+
+.footer a{
+
+    color:#d1d5db;
+
+    text-decoration:none;
+
+}
+
+.footer a:hover{
+
+    color:#60a5fa;
+
+}
+
+.copyright{
+
+    border-top:1px solid #374151;
+
+    margin-top:40px;
+
+    padding-top:25px;
+
+    text-align:center;
+
+    color:#9ca3af;
+
+}
+
+@media(max-width:900px){
+
+.footer-grid{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+}
+
+@media(max-width:600px){
+
+.footer-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
