@@ -1,7 +1,7 @@
 .author-box{
     display:flex;
     gap:32px;
-    padding:36px;
+    padding:28px;
     margin:70px 0;
     border:1px solid #e5e7eb;
     border-radius:20px;
@@ -15,8 +15,8 @@
 }
 
 .author-avatar{
-    width:120px;
-    height:120px;
+    width:110px;
+    height:110px;
     border-radius:50%;
     object-fit:cover;
     border:4px solid #2563eb;
@@ -31,7 +31,7 @@
     align-items:center;
     gap:12px;
     flex-wrap:wrap;
-    margin-bottom:8px;
+    margin-bottom:6px;
 }
 
 .author-title h2{
@@ -50,19 +50,20 @@
 .designation{
     color:#2563eb;
     font-weight:600;
-    margin-bottom:16px;
+    margin-bottom:12px;
 }
 
 .bio{
     line-height:1.8;
     color:#4b5563;
-    margin-bottom:22px;
+    margin-bottom:28px;
 }
 
 .author-links{
     display:flex;
     gap:12px;
     flex-wrap:wrap;
+    margin-top:18px;
 }
 
 .author-links a{
@@ -99,7 +100,7 @@
 .author-info{
     display:flex;
     gap:40px;
-    margin:24px 0;
+    margin:28px 0;
     flex-wrap:wrap;
 }
 
@@ -118,7 +119,7 @@
 }
 
 .expertise{
-    margin-top:24px;
+    margin-top:36px;
 }
 
 .expertise h3{
@@ -143,15 +144,16 @@
 
 .author-button{
     display:inline-block;
-    margin-top:24px;
+    margin-top:28px;
     padding:12px 20px;
     background:#2563eb;
     color:#fff;
     border-radius:10px;
     font-weight:600;
     transition:.3s;
+    
 }
 
 .author-button:hover{
-    background:#1d4ed8;
+    background:#c9c9dc;
 }

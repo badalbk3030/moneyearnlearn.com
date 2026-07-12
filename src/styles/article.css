@@ -45,8 +45,9 @@
   line-height: 1.8;
 }
 
-.blog-post a {
-  color: #2563eb;
+.blog-post p a,
+.blog-post li a{
+    color:#2563eb;
 }
 
 .blog-post img {
