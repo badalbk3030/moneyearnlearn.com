@@ -5,17 +5,24 @@ import FeaturedPost from "../components/home/FeaturedPost.astro";
 import LatestPosts from "../components/home/LatestPosts.astro";
 import Newsletter from "../components/home/Newsletter.astro";
 import Categories from "../components/Categories.astro";
+import OrganizationSchema from "../components/seo/OrganizationSchema.astro";
+import WebsiteSchema from "../components/seo/WebsiteSchema.astro";
 ---
 
 <BaseLayout
-  title="MoneyEarnLearn - Blogging, SEO & Online Earning"
-  description="Blogging, SEO, Programming और Online Earning से जुड़ी आसान हिन्दी जानकारी।"
+  title="MoneyEarnLearn"
+  description="Blogging, SEO, Programming और Online Earning की आसान हिंदी जानकारी"
+  image="/logo.png"
+  type="website"
 >
 
-<Hero />
-<FeaturedPost />
-<LatestPosts />
-<Newsletter />
-<Categories />
+  <OrganizationSchema />
+  <WebsiteSchema />
+
+  <Hero />
+  <FeaturedPost />
+  <LatestPosts />
+  <Newsletter />
+  <Categories />
 
 </BaseLayout>

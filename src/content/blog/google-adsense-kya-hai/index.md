@@ -18,6 +18,16 @@ featured: true
 imageAlt: "Google AdSense Dashboard"
 
 draft: false
+
+faq:
+  - question: Google AdSense क्या है?
+    answer: Google AdSense Google का Advertising Program है जिससे Website Owner पैसे कमा सकते हैं.
+
+  - question: AdSense Approval कैसे मिलता है?
+    answer: अच्छी Quality Content, साफ Design और Google Policies Follow करने पर Approval मिलने की संभावना बढ़ती है.
+
+  - question: क्या AdSense Free है?
+    answer: हाँ, Google AdSense में Account बनाना बिल्कुल Free है.
 ---
 
 # Google AdSense क्या है?
@@ -44,6 +54,9 @@ Google AdSense गूगल का एक Advertising Program है जिस�
 - Internal Linking करें।
 - SEO पर ध्यान दें।
 
+
+
 ## निष्कर्ष
 
 अगर आपकी Website पर अच्छा Traffic आता है और Content Quality अच्छी है, तो Google AdSense Online Income का एक बेहतरीन माध्यम है।
+

@@ -1,4 +1,8 @@
 ---
+import ArticleSchema from "../components/seo/ArticleSchema.astro";
+import FAQ from "../components/blog/FAQ.astro";
+import FAQSchema from "../components/seo/FAQSchema.astro";
+import BreadcrumbSchema from "../components/seo/BreadcrumbSchema.astro";
 import "../styles/article.css";
 import AuthorBox from "../components/blog/AuthorBox.astro";
 import { getCollection, getEntry, render } from "astro:content";
@@ -18,13 +22,34 @@ export async function getStaticPaths() {
   }));
 }
 
-const { slug } = Astro.params;
+const { slug = "" } = Astro.params;
 
-const post = await getEntry("blog", slug!);
+const post = await getEntry("blog", slug);
 
 if (!post) {
   return Astro.redirect("/404");
 }
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+
+
+const breadcrumbs = [
+  {
+    name: "Home",
+    url: "https://moneyearnlearn.com"
+  },
+  {
+    name: post.data.category,
+    url: `https://moneyearnlearn.com/category/${post.data.category.toLowerCase()}`
+  },
+  {
+    name: post.data.title,
+    url: `https://moneyearnlearn.com/${post.id}`
+  }
+];
 
 const author = await getEntry("authors", post.data.author);
 
@@ -84,10 +109,13 @@ const relatedPosts = allPosts
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
+  image={post.data.image?.src}
+  url={`https://moneyearnlearn.com/${post.id}`}
+  type="article"
 >
-
+<BreadcrumbSchema items={breadcrumbs} />
   <article class="container blog-post" data-pagefind-body>
-
+<ArticleSchema post={post} />
 ---
 <Breadcrumb
   category={post.data.category}
@@ -136,6 +164,8 @@ const relatedPosts = allPosts
 <hr />
 
 <Content />
+
+<FAQ faqs={post.data.faq ?? []} />
 
 <AuthorBox
   author={author}

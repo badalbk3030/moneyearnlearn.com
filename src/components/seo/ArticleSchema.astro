@@ -1,0 +1,52 @@
+---
+interface Props {
+  post: any;
+}
+
+const { post } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+
+  headline: post.data.title,
+
+  description: post.data.description,
+
+  image: post.data.image
+    ? `https://moneyearnlearn.com${post.data.image.src}`
+    : undefined,
+
+  datePublished: post.data.pubDate,
+
+  dateModified:
+    post.data.updatedDate ?? post.data.pubDate,
+
+  author: {
+    "@type": "Person",
+    name: "Badal Kumar",
+    url: "https://moneyearnlearn.com/about"
+  },
+
+  publisher: {
+    "@type": "Organization",
+
+    name: "MoneyEarnLearn",
+
+    logo: {
+      "@type": "ImageObject",
+      url: "https://moneyearnlearn.com/logo.png"
+    }
+  },
+
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `https://moneyearnlearn.com/${post.id}`
+  }
+};
+---
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(schema)}
+/>

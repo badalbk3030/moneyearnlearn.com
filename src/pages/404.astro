@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="404 - Page Not Found"
+  description="जिस पेज को आप खोज रहे हैं वह उपलब्ध नहीं है।"
+   noindex={true}
+>
+
+<section class="error-page container">
+
+<h1>404</h1>
+
+<h2>Page Not Found</h2>
+
+<p>
+
+क्षमा करें, जिस पेज को आप खोज रहे हैं वह मौजूद नहीं है।
+
+</p>
+
+<div class="error-actions">
+
+<a href="/" class="btn-primary">
+
+🏠 Home Page
+
+</a>
+
+<a href="/blog" class="btn-secondary">
+
+📚 सभी Articles
+
+</a>
+
+</div>
+
+</section>
+
+</BaseLayout>

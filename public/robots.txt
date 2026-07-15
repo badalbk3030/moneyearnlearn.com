@@ -1,0 +1,9 @@
+User-agent: *
+
+Allow: /
+
+Disallow: /404
+Disallow: /search
+Disallow: /pagefind/
+
+Sitemap: https://moneyearnlearn.com/sitemap-index.xml

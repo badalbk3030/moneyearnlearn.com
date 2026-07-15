@@ -11,6 +11,8 @@
 @import "./utilities.css";
 @import "./newsletter.css";
 @import "./categories.css";
+@import "./faq.css";
+@import "./error.css";
 *{
   margin:0;
   padding:0;
