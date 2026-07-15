@@ -29,9 +29,9 @@
 .author-title{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:px;
     flex-wrap:wrap;
-    margin-bottom:6px;
+    margin-bottom:px;
 }
 
 .author-title h2{

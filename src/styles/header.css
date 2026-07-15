@@ -20,9 +20,16 @@
   font-weight: 700;
   color: #111;
   text-decoration: none;
+  white-space: nowrap;
 }
 
-.site-header ul {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-menu ul {
   display: flex;
   gap: 24px;
   list-style: none;
@@ -30,19 +37,128 @@
   padding: 0;
 }
 
-.site-header a {
+.nav-menu a {
   color: #333;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s ease;
 }
 
-.site-header a:hover {
+.nav-menu a:hover {
   color: #2563eb;
 }
 
+/* Scroll Lock */
+body.overflow-hidden {
+  overflow: hidden;
+}
+
+/* Mobile Toggle Styles */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.hamburger-bar {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Hamburger Active States */
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.is-active .hamburger-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Overlay */
+.mobile-nav-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .site-header ul {
+  .logo {
+    font-size: 20px;
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(280px, 80%);
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+    padding: 80px 24px 24px;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+  }
+
+  .nav-menu.is-active {
+    right: 0;
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
     gap: 16px;
-    font-size: 14px;
+  }
+
+  .nav-menu a {
+    font-size: 18px;
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .nav-menu li:last-child a {
+    border-bottom: none;
+  }
+
+  /* Overlay setup for mobile */
+  .mobile-nav-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+  }
+
+  .mobile-nav-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Compact search button on mobile */
+  .site-header .search-button {
+    padding: 8px 12px;
+  }
+  
+  .site-header .search-button .search-text {
+    display: none;
   }
 }
