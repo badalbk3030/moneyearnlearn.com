@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-
+import { Image } from "astro:assets";
 const posts = await getCollection(
   "blog",
   ({ data }) => !data.draft
@@ -20,11 +20,18 @@ const featured = posts[0];
 
     <div class="featured-image">
 
-      <img
-        src={featured.data.image}
-        alt={featured.data.title}
-      />
-
+    {featured.data.image && (
+  <Image
+    src={featured.data.image}
+    alt={featured.data.imageAlt || featured.data.title}
+    width={1200}
+    height={630}
+    loading="eager"
+    fetchpriority="high"
+    format="webp"
+    sizes="100vw"
+  />
+)}
     </div>
 
     <div class="featured-content">

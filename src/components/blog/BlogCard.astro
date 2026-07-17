@@ -1,6 +1,6 @@
 ---
 import "../../styles/blog-card.css";
-
+import { Image } from "astro:assets";
 const { post } = Astro.props;
 
 const date = post.data.pubDate.toLocaleDateString("en-IN", {
@@ -22,12 +22,17 @@ const readingTime = Math.max(1, Math.ceil(words / 200));
 
   {
     post.data.image && (
-      <img
-        src={post.data.image.src ?? post.data.image}
-        alt={post.data.imageAlt || post.data.title}
-        class="blog-card-image"
-        loading="lazy"
-      />
+      <Image
+  src={post.data.image}
+  alt={post.data.imageAlt || post.data.title}
+  class="blog-card-image"
+  width={600}
+  height={400}
+  loading="lazy"
+  decoding="async"
+  format="webp"
+  sizes="(max-width:768px) 100vw, 33vw"
+/>
     )
   }
 
