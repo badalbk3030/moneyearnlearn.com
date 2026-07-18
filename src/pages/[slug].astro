@@ -148,17 +148,12 @@ const relatedPosts = allPosts
 
 {
   post.data.image && (
-  <Image
-src={post.data.image}
-alt={post.data.imageAlt || post.data.title}
-class="featured-image"
-width={1200}
-height={630}
-loading="eager"
-decoding="async"
-fetchpriority="high"
-format="webp"
-sizes="100vw"
+  <img
+  src={post.data.image.src}
+  alt={post.data.imageAlt || post.data.title}
+  class="featured-image"
+  loading="eager"
+  decoding="async"
 />
   )
 }
