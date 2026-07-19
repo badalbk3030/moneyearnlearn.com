@@ -37,6 +37,7 @@ faq:
 लेकिन नए लोगों के मन में कई सवाल होते हैं, जैसे कि Google AdSense क्या है, यह कैसे काम करता है, Approval कैसे मिलता है, कितने Visitor होने चाहिए और इससे पैसे कैसे मिलते हैं।
 
 इस लेख में हम Google AdSense से जुड़ी सभी महत्वपूर्ण जानकारी आसान हिंदी में विस्तार से समझेंगे।
+![Google AdSense Dashboard](./adsense-step.png)
 
 ## Google AdSense क्या है?
 
