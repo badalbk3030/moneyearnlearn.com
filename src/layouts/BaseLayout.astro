@@ -1,0 +1,195 @@
+---
+import "../styles/global.css";
+import SearchModal from "../components/search/SearchModal.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+
+interface Props{
+title:string;
+description:string;
+image?:string;
+url?:string;
+noindex?: boolean;
+type?:"website"|"article";
+}
+
+const {
+  title = "MoneyEarnLearn",
+  description = "MoneyEarnLearn पर Blogging, SEO, Programming और Online Earning से जुड़ी आसान और उपयोगी जानकारी पढ़ें।",
+  image = "/logo.png",
+  url,
+  type = "website",
+  noindex = false
+} = Astro.props;
+
+const site = "https://moneyearnlearn.com";
+
+const canonical = url ?? new URL(Astro.url.pathname, site).toString();
+
+const imageUrl = image.startsWith("http")
+  ? image
+  : `${site}${image}`;
+---
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>{title}</title>
+
+  <meta
+    name="description"
+    content={description}
+  />
+
+  <meta
+    name="author"
+    content="Badal Kumar"
+  />
+
+  <meta
+    name="robots"
+    content="index,follow,max-image-preview:large"
+  />
+
+  <meta
+    name="keywords"
+    content="Blogging, SEO, Programming, Online Earning, Digital Marketing, MoneyEarnLearn"
+  />
+
+  <meta
+    name="theme-color"
+    content="#2563eb"
+  />
+
+  <meta
+    name="generator"
+    content={Astro.generator}
+  />
+
+  <meta
+    name="application-name"
+    content="MoneyEarnLearn"
+  />
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="MoneyEarnLearn"
+  />
+
+  <meta
+    name="format-detection"
+    content="telephone=no"
+  />
+
+  <link
+    rel="canonical"
+    href={canonical}
+  />
+<meta
+  name="robots"
+  content={noindex ? "noindex, nofollow" : "index, follow"}
+/>
+
+  <!-- Favicons -->
+
+  <link
+    rel="icon"
+    href="/favicon.ico"
+    sizes="any"
+  />
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/logo.png"
+  />
+
+  <link
+    rel="apple-touch-icon"
+    href="/logo.png"
+  />
+
+  <!-- Open Graph -->
+
+  <meta property="og:type" content={type} />
+
+  <meta
+    property="og:site_name"
+    content="MoneyEarnLearn"
+  />
+
+  <meta
+    property="og:locale"
+    content="hi_IN"
+  />
+
+  <meta
+    property="og:title"
+    content={title}
+  />
+
+  <meta
+    property="og:description"
+    content={description}
+  />
+
+  <meta
+    property="og:url"
+    content={canonical}
+  />
+
+  <meta
+    property="og:image"
+    content={imageUrl}
+  />
+
+  <!-- Twitter -->
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image"
+  />
+
+  <meta
+    name="twitter:title"
+    content={title}
+  />
+
+  <meta
+    name="twitter:description"
+    content={description}
+  />
+
+  <meta
+    name="twitter:image"
+    content={imageUrl}
+  />
+
+</head>
+
+<body>
+
+  <SearchModal />
+
+  <Header />
+
+  <main data-pagefind-body>
+    <slot />
+  </main>
+
+  <Footer />
+
+
+</body>
+</html>
+</body>
+
+</html>

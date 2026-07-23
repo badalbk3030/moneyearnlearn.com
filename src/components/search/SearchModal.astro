@@ -1,0 +1,236 @@
+---
+// src/components/search/SearchModal.astro
+// इस पूरे CSS फाइल को उसी path के साथ import कर लिया गया है
+import "../../styles/search.css";
+---
+
+<div id="search-modal" class="search-modal">
+    <div class="search-box">
+        <button id="close-search" class="close-search" type="button">✕</button>
+        
+        <h2 class="search-heading">Search Articles</h2>
+        
+        <input id="search-input" type="search" placeholder="Search articles..." autocomplete="off" />
+        
+        <div id="search-results"></div>
+    </div>
+</div>
+
+<script>
+  const modal = document.getElementById("search-modal");
+  const openBtn = document.getElementById("open-search");
+  const closeBtn = document.getElementById("close-search");
+  const input = document.getElementById("search-input") as HTMLInputElement | null;
+  const results = document.getElementById("search-results");
+
+  let posts: any[] = [];
+  let loaded = false;
+  let debounceTimer: ReturnType<typeof setTimeout>;
+
+  // -------------------------
+  // Load search.json
+  // -------------------------
+  async function loadPosts() {
+    if (loaded || !results) return;
+
+    results.innerHTML = `<div class="search-loading">Loading</div>`;
+
+    try {
+      const res = await fetch("/search.json");
+
+      if (!res.ok) {
+        throw new Error("search.json not found");
+      }
+
+      posts = await res.json();
+      loaded = true;
+    } catch (err) {
+      console.error(err);
+      results.innerHTML = `
+        <p class="no-results">Search index could not be loaded.</p>
+      `;
+    }
+  }
+
+  // -------------------------
+  // Open / Close Modal
+  // -------------------------
+  async function openSearch() {
+    if (!modal || !input) return;
+
+    modal.classList.add("active");
+    document.body.classList.add("overflow-hidden");
+    input.focus();
+
+    await loadPosts();
+    showRecentSearches();
+  }
+
+  function closeSearch() {
+    if (!modal || !input || !results) return;
+
+    modal.classList.remove("active");
+    document.body.classList.remove("overflow-hidden");
+    input.value = "";
+    results.innerHTML = "";
+  }
+
+  if (openBtn && modal && closeBtn && input && results) {
+    openBtn.addEventListener("click", openSearch);
+    closeBtn.addEventListener("click", closeSearch);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeSearch();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        closeSearch();
+      }
+
+      const isMac = navigator.platform.toUpperCase().includes("MAC");
+
+      if (
+        (isMac && e.metaKey && e.key.toLowerCase() === "k") ||
+        (!isMac && e.ctrlKey && e.key.toLowerCase() === "k")
+      ) {
+        e.preventDefault();
+
+        if (modal.classList.contains("active")) {
+          closeSearch();
+        } else {
+          openSearch();
+        }
+      }
+    });
+
+    // -------------------------
+    // Search input handler
+    // -------------------------
+    input.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+
+      debounceTimer = setTimeout(() => {
+        const query = input.value.trim().toLowerCase();
+
+        if (!query) {
+          showRecentSearches();
+          return;
+        }
+
+        const filtered = posts.filter((post) => {
+          const title = (post.title || "").toLowerCase();
+          const description = (post.description || "").toLowerCase();
+          const category = (post.category || "").toLowerCase();
+          const tags = (post.tags || []).join(" ").toLowerCase();
+
+          return (
+            title.includes(query) ||
+            description.includes(query) ||
+            category.includes(query) ||
+            tags.includes(query)
+          );
+        });
+
+        renderResults(filtered, query);
+        saveRecentSearch(query);
+      }, 250);
+    });
+  }
+
+  // -------------------------
+  // Render Results
+  // -------------------------
+  function renderResults(data: any[], query: string) {
+    if (!results) return;
+
+    if (!data.length) {
+      results.innerHTML = `
+        <div class="no-results">
+          <h3>No articles found</h3>
+          <p>Try another keyword.</p>
+        </div>
+      `;
+      return;
+    }
+
+    results.innerHTML = data
+      .map((post) => {
+        const title = highlight(post.title, query);
+        const description = highlight(post.description, query);
+
+        return `
+          <a class="search-result" href="${post.url}">
+            <h3>${title}</h3>
+            <p>${description}</p>
+          </a>
+        `;
+      })
+      .join("");
+  }
+
+  // -------------------------
+  // Highlight
+  // -------------------------
+  function highlight(text: string, query: string) {
+    if (!text) return "";
+    if (!query) return text;
+
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const regex = new RegExp(`(${escaped})`, "gi");
+
+    return text.replace(regex, "<mark>$1</mark>");
+  }
+
+  // -------------------------
+  // Recent Searches
+  // -------------------------
+  function saveRecentSearch(query: string) {
+    if (!query) return;
+
+    let history = JSON.parse(localStorage.getItem("recent-searches") || "[]");
+    history = history.filter((item: string) => item !== query);
+    history.unshift(query);
+    history = history.slice(0, 5);
+
+    localStorage.setItem("recent-searches", JSON.stringify(history));
+  }
+
+  function showRecentSearches() {
+    if (!results || !input) return;
+
+    const history = JSON.parse(localStorage.getItem("recent-searches") || "[]");
+
+    if (!history.length) {
+      results.innerHTML = `
+        <div class="no-results">
+          <p>Start typing to search articles...</p>
+        </div>
+      `;
+      return;
+    }
+
+    results.innerHTML = `
+      <div class="recent-searches">
+        <h3>Recent Searches</h3>
+        ${history
+          .map(
+            (item: string) => `
+              <button class="recent-search-item" data-search="${item}">
+                ${item}
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+    `;
+
+    document.querySelectorAll(".recent-search-item").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (!input) return;
+        input.value = btn.getAttribute("data-search") || "";
+        input.dispatchEvent(new Event("input"));
+      });
+    });
+  }
+</script>

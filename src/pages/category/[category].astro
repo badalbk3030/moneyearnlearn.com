@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/blog/BlogCard.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection(
+    "blog",
+    ({ data }) => !data.draft
+  );
+
+  const categories = [
+    ...new Set(posts.map((post) => post.data.category))
+  ];
+
+  return categories.map((category) => ({
+    params: {
+      category: category.toLowerCase(),
+    },
+  }));
+}
+
+const { category } = Astro.params;
+
+const allPosts = await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+);
+
+const posts = allPosts.filter(
+  (post) =>
+    post.data.category.toLowerCase() === category
+);
+---
+
+<BaseLayout
+  title={`${category} Articles | MoneyEarnLearn`}
+  description={`${category} से जुड़े सभी लेख पढ़ें।`}
+>
+
+<section class="container categories">
+
+  <div class="categories-header">
+    <h1>{category} Articles</h1>
+    <p>
+      इस Category से जुड़े सभी लेख नीचे दिए गए हैं।
+    </p>
+  </div>
+
+  <div class="posts-grid">
+    {
+      posts.map((post) => (
+        <BlogCard post={post} />
+      ))
+    }
+  </div>
+
+</section>
+
+</BaseLayout>

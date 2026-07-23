@@ -1,0 +1,85 @@
+/* ===========================
+   Table of Contents
+=========================== */
+
+.toc{
+  margin:40px 0;
+  padding:24px;
+
+  background:#f8fafc;
+
+  border:1px solid var(--border);
+  border-radius:16px;
+}
+
+.toc h2{
+  margin-bottom:18px;
+
+  font-size:1.3rem;
+
+  color:var(--text);
+
+  font-weight:700;
+}
+
+.toc ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.toc li{
+  margin:12px 0;
+}
+
+.toc li ul{
+  margin-top:10px;
+  margin-left:18px;
+}
+
+.toc a{
+  display:block;
+
+  color:var(--text-light);
+
+  line-height:1.7;
+
+  transition:
+    color .25s ease,
+    padding-left .25s ease;
+}
+
+.toc a:hover{
+  color:var(--primary);
+  padding-left:6px;
+}
+
+.toc .toc-level-2{
+  font-weight:600;
+}
+
+.toc .toc-level-3{
+  padding-left:18px;
+  font-size:.95rem;
+}
+
+.toc .toc-level-4{
+  padding-left:36px;
+  font-size:.9rem;
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+.toc{
+  padding:20px;
+}
+
+.toc h2{
+  font-size:1.2rem;
+}
+
+}

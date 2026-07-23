@@ -1,0 +1,74 @@
+---
+import "../../styles/header.css";
+import SearchButton from "../search/SearchButton.astro";
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Blog", href: "/blog" },
+  { name: "Categories", href: "/category" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+---
+
+<header class="site-header">
+  <div class="container">
+    <a href="/" class="logo">
+      MoneyEarnLearn
+    </a>
+
+    <nav class="nav-menu">
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a href={item.href}>
+                {item.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <SearchButton />
+      <button class="mobile-menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav-overlay"></div>
+
+<script>
+  const toggleBtn = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  const overlay = document.querySelector('.mobile-nav-overlay');
+
+  if (toggleBtn && navMenu && overlay) {
+    const toggleMenu = () => {
+      const isActive = toggleBtn.classList.toggle('is-active');
+      navMenu.classList.toggle('is-active', isActive);
+      overlay.classList.toggle('is-active', isActive);
+      document.body.classList.toggle('overflow-hidden', isActive);
+      toggleBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    };
+
+    toggleBtn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking a link
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        toggleBtn.classList.remove('is-active');
+        navMenu.classList.remove('is-active');
+        overlay.classList.remove('is-active');
+        document.body.classList.remove('overflow-hidden');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

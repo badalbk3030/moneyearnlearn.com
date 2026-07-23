@@ -1,0 +1,19 @@
+---
+const { category, title } = Astro.props;
+---
+
+<nav class="breadcrumb">
+
+  <a href="/">Home</a>
+
+  <span>›</span>
+
+  <a href={`/category/${category.toLowerCase()}`}>
+    {category}
+  </a>
+
+  <span>›</span>
+
+  <span>{title}</span>
+
+</nav>

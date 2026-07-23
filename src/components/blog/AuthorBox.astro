@@ -1,0 +1,121 @@
+---
+import { Image } from "astro:assets";
+import "../../styles/author-box.css";
+
+const { author, slug } = Astro.props;
+---
+
+<section class="author-box">
+
+  <div class="author-image">
+    <Image
+      src={author.data.avatar}
+      alt={author.data.name}
+      width={120}
+      height={120}
+      class="author-avatar"
+    />
+  </div>
+
+  <div class="author-content">
+
+    <div class="author-title">
+
+      <h2>{author.data.name}</h2>
+
+      {
+        author.data.verified && (
+          <span class="verified">
+            ✔ Verified
+          </span>
+        )
+      }
+
+    </div>
+
+    <p class="designation">
+      {author.data.designation}
+    </p>
+
+    <p class="bio">
+      {author.data.bio}
+    </p>
+
+    <div class="author-info">
+
+      <div class="info-item">
+        <strong>💼 Experience</strong>
+        <span>{author.data.experience}</span>
+      </div>
+
+      <div class="info-item">
+        <strong>📍 Location</strong>
+        <span>{author.data.location}</span>
+      </div>
+
+    </div>
+
+    <div class="expertise">
+
+      <h3>Expertise</h3>
+
+      <div class="expertise-list">
+
+        {
+          author.data.expertise.map((item: string) => (
+            <span class="expertise-tag">
+              {item}
+            </span>
+          ))
+        }
+
+      </div>
+
+    </div>
+
+    <div class="author-links">
+
+      <a
+        href={author.data.website}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        🌐 Website
+      </a>
+
+      <a
+        href={author.data.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💼 LinkedIn
+      </a>
+
+      <a
+        href={author.data.twitter}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        🐦 X
+      </a>
+
+      <a
+        href={author.data.github}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💻 GitHub
+      </a>
+
+    </div>
+
+    <a
+      href={`/author/${slug}`}
+      class="author-button"
+    >
+      View All Articles →
+    </a>
+
+  </div>
+
+</section>

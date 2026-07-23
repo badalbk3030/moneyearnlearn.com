@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlogCard from "../components/blog/BlogCard.astro";
+
+const posts = await getCollection(
+  "blog",
+  ({ data }) => !data.draft
+);
+---
+
+<BaseLayout
+  title="सभी लेख | MoneyEarnLearn"
+  description="हमारे सभी Blogging, SEO, Programming और Online Earning से जुड़े लेख पढ़ें।"
+>
+
+  <section class="container">
+
+    <h1>सभी लेख</h1>
+
+    <p class="blog-description">
+      हमारे सभी Blogging, SEO, Programming और Online Earning से जुड़े लेख यहाँ पढ़ें।
+    </p>
+
+    <div class="posts-grid">
+      {
+        posts.map((post) => (
+          <BlogCard post={post} />
+        ))
+      }
+    </div>
+
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+
+  name: "MoneyEarnLearn",
+
+  alternateName: "Money Earn Learn",
+
+  url: "https://moneyearnlearn.com",
+
+  description:
+    "MoneyEarnLearn पर Blogging, SEO, Programming और Online Earning की जानकारी हिंदी में पढ़ें।",
+
+  inLanguage: "hi-IN",
+
+  publisher: {
+    "@type": "Organization",
+    name: "MoneyEarnLearn",
+    url: "https://moneyearnlearn.com"
+  },
+
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://moneyearnlearn.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(website)}
+></script>

@@ -1,0 +1,55 @@
+---
+import FAQSchema from "../seo/FAQSchema.astro";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: FAQItem[];
+}
+
+const { faqs = [] } = Astro.props;
+---
+
+{faqs.length > 0 && (
+<>
+<section class="faq-section">
+
+<h2>अक्सर पूछे जाने वाले प्रश्न</h2>
+
+<div class="faq-list">
+
+{
+faqs.map((faq,index)=>(
+
+<details class="faq-item">
+
+<summary>
+
+<span>{faq.question}</span>
+
+<span class="icon">+</span>
+
+</summary>
+
+<div class="faq-answer">
+
+<p>{faq.answer}</p>
+
+</div>
+
+</details>
+
+))
+}
+
+</div>
+
+</section>
+
+<FAQSchema faqs={faqs} />
+
+</>
+)}

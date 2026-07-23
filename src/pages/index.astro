@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/home/Hero.astro";
+import FeaturedPost from "../components/home/FeaturedPost.astro";
+import LatestPosts from "../components/home/LatestPosts.astro";
+import Newsletter from "../components/home/Newsletter.astro";
+import Categories from "../components/Categories.astro";
+import OrganizationSchema from "../components/seo/OrganizationSchema.astro";
+import WebsiteSchema from "../components/seo/WebsiteSchema.astro";
+---
+
+<BaseLayout
+  title="MoneyEarnLearn"
+  description="Blogging, SEO, Programming और Online Earning की आसान हिंदी जानकारी"
+  image="/logo.png"
+  type="website"
+>
+
+  <OrganizationSchema />
+  <WebsiteSchema />
+
+  <Hero />
+  <FeaturedPost />
+  <LatestPosts />
+  <Newsletter />
+  <Categories />
+
+</BaseLayout>

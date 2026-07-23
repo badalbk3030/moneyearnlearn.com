@@ -1,0 +1,47 @@
+/* ===========================
+   Breadcrumb
+=========================== */
+
+.breadcrumb{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+
+  margin-bottom:25px;
+
+  font-size:.95rem;
+
+  color:var(--text-light);
+}
+
+.breadcrumb a{
+  color:var(--primary);
+
+  transition:
+    color .25s ease;
+}
+
+.breadcrumb a:hover{
+  color:var(--primary-dark);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.breadcrumb span{
+  color:var(--text-light);
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media(max-width:768px){
+
+.breadcrumb{
+  gap:8px;
+  font-size:.9rem;
+  margin-bottom:20px;
+}
+
+}
