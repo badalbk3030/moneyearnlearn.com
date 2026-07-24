@@ -3,14 +3,15 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
-export default defineConfig({
+import cloudflare from "@astrojs/cloudflare";
 
+export default defineConfig({
   site: "https://moneyearnlearn.com",
 
   integrations: [
     sitemap()
   ],
 
-  compressHTML: true
-
+  compressHTML: true,
+  adapter: cloudflare()
 });
