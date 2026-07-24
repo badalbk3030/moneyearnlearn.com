@@ -212,7 +212,10 @@ import "../../styles/search.css";
 
     results.innerHTML = `
       <div class="recent-searches">
-        <h3>Recent Searches</h3>
+        <div class="recent-searches-head">
+          <h3>Recent Searches</h3>
+          <button type="button" class="clear-recent-searches">Clear</button>
+        </div>
         ${history
           .map(
             (item: string) => `
@@ -231,6 +234,12 @@ import "../../styles/search.css";
         input.value = btn.getAttribute("data-search") || "";
         input.dispatchEvent(new Event("input"));
       });
+    });
+
+    const clearBtn = document.querySelector(".clear-recent-searches");
+    clearBtn?.addEventListener("click", () => {
+      localStorage.removeItem("recent-searches");
+      showRecentSearches();
     });
   }
 </script>

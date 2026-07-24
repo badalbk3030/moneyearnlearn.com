@@ -180,6 +180,67 @@
 }
 
 /* ===========================
+   Recent Searches
+=========================== */
+
+.recent-searches-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:12px;
+}
+
+.recent-searches h3{
+  font-size:.95rem;
+
+  color:var(--text-light);
+}
+
+.clear-recent-searches{
+  border:none;
+  background:none;
+
+  color:var(--primary);
+
+  font-size:.85rem;
+  font-weight:600;
+
+  cursor:pointer;
+
+  padding:4px 6px;
+}
+
+.clear-recent-searches:hover{
+  text-decoration:underline;
+}
+
+.recent-search-item{
+  display:inline-block;
+
+  margin:0 8px 8px 0;
+  padding:8px 14px;
+
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:none;
+
+  color:var(--text);
+  font-size:.9rem;
+
+  cursor:pointer;
+
+  transition:
+    background-color .2s ease,
+    border-color .2s ease;
+}
+
+.recent-search-item:hover{
+  background:#f8fafc;
+  border-color:var(--primary);
+}
+
+/* ===========================
    No Results
 =========================== */
 
